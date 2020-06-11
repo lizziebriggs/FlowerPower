@@ -7,7 +7,7 @@ TextureImporter:
     second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_0
   - first:
       213: 846423523931036538
-    second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_1
+    second: Hyacinth2
   - first:
       213: 2619836808626550266
     second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_2
@@ -28,7 +28,7 @@ TextureImporter:
     second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_7
   - first:
       213: -7204981807560408723
-    second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_8
+    second: Hyacinth
   - first:
       213: -3666846867853441102
     second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_9
@@ -67,7 +67,7 @@ TextureImporter:
     second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_20
   - first:
       213: 5016691087160523406
-    second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_21
+    second: Lavender
   - first:
       213: -498085313222905521
     second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_22
@@ -109,7 +109,7 @@ TextureImporter:
     second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_34
   - first:
       213: -5807821047585346680
-    second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_35
+    second: Rose
   - first:
       213: -4748787812141895955
     second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_36
@@ -121,7 +121,7 @@ TextureImporter:
     second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_38
   - first:
       213: 1989820452856266670
-    second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_39
+    second: Sunflower
   - first:
       213: -7013042603795613452
     second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_40
@@ -166,7 +166,7 @@ TextureImporter:
     second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_53
   - first:
       213: -5256842522406396876
-    second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_54
+    second: Reeds
   - first:
       213: 4456085842634457126
     second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_55
@@ -232,7 +232,7 @@ TextureImporter:
     second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_75
   - first:
       213: 4276216556425594676
-    second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_76
+    second: Bush
   - first:
       213: 643564870223542455
     second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_77
@@ -241,7 +241,7 @@ TextureImporter:
     second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_78
   - first:
       213: 8067013666094182260
-    second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_79
+    second: Cactus
   - first:
       213: 4944313276690467622
     second: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_80
@@ -492,7 +492,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_1
+      name: Hyacinth2
       rect:
         serializedVersion: 2
         x: 68
@@ -639,7 +639,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_8
+      name: Hyacinth
       rect:
         serializedVersion: 2
         x: 502
@@ -912,7 +912,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_21
+      name: Lavender
       rect:
         serializedVersion: 2
         x: 68
@@ -1206,7 +1206,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_35
+      name: Rose
       rect:
         serializedVersion: 2
         x: 316
@@ -1290,7 +1290,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_39
+      name: Sunflower
       rect:
         serializedVersion: 2
         x: 564
@@ -1605,7 +1605,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_54
+      name: Reeds
       rect:
         serializedVersion: 2
         x: 254
@@ -2067,7 +2067,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_76
+      name: Bush
       rect:
         serializedVersion: 2
         x: 378
@@ -2130,7 +2130,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 100_flower_sprites_by_neoriceisgood_d5rpq1t-fullview_79
+      name: Cactus
       rect:
         serializedVersion: 2
         x: 564

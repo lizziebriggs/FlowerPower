@@ -1,23 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using MatchThree;
 using UnityEngine;
 
 namespace Managers
 {
     public class BoardManager : MonoBehaviour
     {
-        public static BoardManager instance;
-        public List<Sprite> tileCharacters = new List<Sprite>();
-        public GameObject tile;
-        public int xSize, ySize;
+        public static BoardManager Instance;
+        
+        [Header("Board Values")]
+        [SerializeField] private List<Sprite> tileCharacters = new List<Sprite>();
+        [SerializeField] private GameObject tile;
+        [SerializeField] private int xSize = 8, ySize = 12;
+        [SerializeField] private float shiftDelay = .03f;
 
         private GameObject[,] _tiles; // 2D array
         
-        public bool IsShifting { get; set; }
+        public bool IsShifting { get; private set; }
         
-        
+
         private void Start()
         {
-            instance = GetComponent<BoardManager>();
+            Instance = GetComponent<BoardManager>();
 
             Vector2 offset = tile.GetComponent<SpriteRenderer>().bounds.size;
             CreateBoard(offset.x, offset.y);
@@ -33,9 +38,9 @@ namespace Managers
             Sprite[] spritesLeft = new Sprite[ySize];
             Sprite spriteBelow = null;
 
-            for (var x = 0; x < xSize; x++)
+            for (int x = 0; x < xSize; x++)
             {
-                for (var y = 0; y < ySize; y++)
+                for (int y = 0; y < ySize; y++)
                 {
                     GameObject newTile = Instantiate(tile, new Vector3(start.x + (xOffset * x), start.y + (yOffset * y), 0), tile.transform.rotation);
                     _tiles[x, y] = newTile;
@@ -55,6 +60,75 @@ namespace Managers
                     spriteBelow = newSprite;
                 }
             }
+        }
+
+
+        public IEnumerator FindNullTiles()
+        {
+            for (int x = 0; x < xSize; x++)
+            {
+                for (int y = 0; y < ySize; y++)
+                {
+                    if (_tiles[x, y].GetComponent<SpriteRenderer>().sprite) continue;
+                    
+                    yield return StartCoroutine(routine: ShiftTilesDown(x, y));
+                    break;
+                }
+            }
+            
+            for (int x = 0; x < xSize; x++) {
+                for (int y = 0; y < ySize; y++)
+                {
+                    _tiles[x, y].GetComponent<Tile>().ClearAllMatches();
+                }
+            }
+
+        }
+
+
+        private IEnumerator ShiftTilesDown(int x, int yStart)
+        {
+            IsShifting = true;
+            List<SpriteRenderer> renders = new List<SpriteRenderer>();
+            int nullCount = 0;
+
+            for (int y = yStart; y < ySize; y++)
+            {
+                SpriteRenderer render = _tiles[x, y].GetComponent<SpriteRenderer>();
+
+                if (!render.sprite) nullCount++;
+                
+                renders.Add(render);
+            }
+
+            for (int i = 0; i < nullCount; i++)
+            {
+                yield return new WaitForSeconds(shiftDelay);
+
+                for (int r = 0; r < renders.Count - 1; r++)
+                {
+                    renders[r].sprite = renders[r + 1].sprite;
+                    renders[r + 1].sprite = GetNewSprite(x, ySize -1);
+                }
+            }
+
+            IsShifting = false;
+        }
+
+
+        private Sprite GetNewSprite(int x, int y)
+        {
+            List<Sprite> possibleCharacters = new List<Sprite>();
+            possibleCharacters.AddRange(tileCharacters);
+
+            if (x > 0)
+                possibleCharacters.Remove(_tiles[x - 1, y].GetComponent<SpriteRenderer>().sprite);
+            if(x < xSize - 1)
+                possibleCharacters.Remove(_tiles[x + 1, y].GetComponent<SpriteRenderer>().sprite);
+            if(y > 0)
+                possibleCharacters.Remove(_tiles[x, y - 1].GetComponent<SpriteRenderer>().sprite);
+
+            return possibleCharacters[Random.Range(0, possibleCharacters.Count)];
         }
     }
 }
