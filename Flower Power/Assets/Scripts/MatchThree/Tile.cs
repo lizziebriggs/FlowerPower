@@ -82,6 +82,8 @@ namespace MatchThree
             {
                 FindMatch(dir);
             }
+
+            GUIManager.Instance.MovesCounter -= 1;
         }
 
         
@@ -138,6 +140,7 @@ namespace MatchThree
             }
 
             _matchFound = true;
+            GUIManager.Instance.Score += 50;
         }
 
 
