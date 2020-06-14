@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using MatchThree;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Managers
 {

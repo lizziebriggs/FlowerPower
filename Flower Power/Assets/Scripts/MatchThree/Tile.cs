@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Managers;
+using Unity.Mathematics;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 
@@ -83,7 +84,7 @@ namespace MatchThree
                 FindMatch(dir);
             }
 
-            GUIManager.Instance.MovesCounter -= 1;
+            GuiManager.Instance.MovesCount -= 1;
         }
 
         
@@ -138,9 +139,30 @@ namespace MatchThree
             {
                 tile.GetComponent<SpriteRenderer>().sprite = null;
             }
+            
+            Debug.Log(matchingTiles.Count);
+            
+            // Add appropriate score
+            switch (matchingTiles.Count)
+            {
+                case 2: 
+                    GuiManager.Instance.Score += MatchThreeManager.Instance.ThreeTileMatch;
+                    break;
+                
+                case 3: 
+                    GuiManager.Instance.Score += MatchThreeManager.Instance.FourTileMatch;
+                    break;
+                
+                case 4: 
+                    GuiManager.Instance.Score += MatchThreeManager.Instance.FiveTileMatch;
+                    break;
+                
+                default:
+                    GuiManager.Instance.Score += 50;
+                    break;
+            }
 
             _matchFound = true;
-            GUIManager.Instance.Score += 50;
         }
 
 
