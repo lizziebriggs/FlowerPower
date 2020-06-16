@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Managers;
-using Unity.Mathematics;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 
@@ -19,10 +18,45 @@ namespace MatchThree
 
         private bool _matchFound;
         
+        [Header("Selection")]
+        [SerializeField] private float swipeThreshold = 20f;
+        public bool detectSwipeOnlyAfterRelease;
+        private Vector2 _fingerDown;
+        private Vector2 _fingerUp;
+
+        
         private void Start()
         {
             _render = GetComponent<SpriteRenderer>();
-            name = _render.sprite.name;
+            //name = _render.sprite.name;
+        }
+        
+        private void Update()
+        {
+            if (!_isSelected) return;
+        
+            foreach (Touch touch in Input.touches)
+            {
+                if (touch.phase == TouchPhase.Began)
+                {
+                    _fingerUp = touch.position;
+                    _fingerDown = touch.position;
+                }
+        
+                //Detects swipe after finger is released
+                if (touch.phase == TouchPhase.Ended)
+                {
+                    _fingerDown = touch.position;
+                    _previousSelected = CheckSwipe().GetComponent<Tile>();
+                    
+                    SwapTiles(_previousSelected._render);
+                    ClearAllMatches();
+                    _previousSelected.GetComponent<Tile>().ClearAllMatches(); // Clear matches for other swapped tile
+                    
+                    _previousSelected.Deselect();
+                    Deselect();
+                }
+            }
         }
 
 
@@ -50,7 +84,11 @@ namespace MatchThree
                 Deselect();
             else
             {
-                if(!_previousSelected) Select();
+                if (!_previousSelected)
+                {
+                    Select();
+                    Debug.Log(name + " selected");
+                }
 
                 else
                 {
@@ -58,6 +96,7 @@ namespace MatchThree
                     {
                         SwapTiles(_previousSelected._render);
                         ClearAllMatches();
+                        _previousSelected.GetComponent<Tile>().ClearAllMatches(); // Clear matches for other swapped tile
                         _previousSelected.Deselect();
                     }
                     else
@@ -69,8 +108,57 @@ namespace MatchThree
                 }
             }
         }
-
         
+        private GameObject CheckSwipe()
+        {
+            GameObject swappingTile = null;
+            
+            // Vertical swipes
+            if (VerticalMove() > swipeThreshold && VerticalMove() > HorizontalValMove())
+            {
+                if (_fingerDown.y - _fingerUp.y > 0)//up swipe
+                {
+                    //Debug.Log("Swipe Up");
+                    swappingTile = GetAdjacentTile(_adjacentDirections[0]);
+                }
+                else if (_fingerDown.y - _fingerUp.y < 0)//Down swipe
+                {
+                    //Debug.Log("Swipe Down");
+                    swappingTile = GetAdjacentTile(_adjacentDirections[1]);
+                }
+                _fingerUp = _fingerDown;
+            }
+
+            // Horizontal swipes
+            else if (HorizontalValMove() > swipeThreshold && HorizontalValMove() > VerticalMove())
+            {
+                if (_fingerDown.x - _fingerUp.x < 0) // Left swipe
+                {
+                    //Debug.Log("Swipe Left");
+                    swappingTile = GetAdjacentTile(_adjacentDirections[2]);
+                }
+                else if (_fingerDown.x - _fingerUp.x > 0) // Right swipe
+                {
+                    //Debug.Log("Swipe Right");
+                    swappingTile = GetAdjacentTile(_adjacentDirections[3]);
+                }
+                
+                _fingerUp = _fingerDown;
+            }
+
+            return swappingTile;
+        }
+        
+        private float VerticalMove()
+        {
+            return Mathf.Abs(_fingerDown.y - _fingerUp.y);
+        }
+
+        private float HorizontalValMove()
+        {
+            return Mathf.Abs(_fingerDown.x - _fingerUp.x);
+        }
+
         private void SwapTiles(SpriteRenderer swapRender)
         {
             if (_render.sprite == swapRender.sprite) return;
@@ -79,10 +167,17 @@ namespace MatchThree
             _render.sprite = swapRender.sprite;
             swapRender.sprite = tempSprite;
 
+            //gameObject.name = _render.sprite.name;
+            //swapRender.gameObject.name = swapRender.sprite.name;
+            
+            //Debug.Log(name + " swapped");
+
             foreach (Vector2 dir in _adjacentDirections)
             {
                 FindMatch(dir);
+                swapRender.GetComponent<Tile>().FindMatch(dir);
             }
+
 
             GuiManager.Instance.MovesCount -= 1;
         }
@@ -110,6 +205,8 @@ namespace MatchThree
 
         private List<GameObject> FindMatch(Vector2 castDir)
         {
+            //Debug.Log(name + " searching for matches");
+            
             List<GameObject> matchingTiles = new List<GameObject>();
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, castDir);
@@ -140,8 +237,6 @@ namespace MatchThree
                 tile.GetComponent<SpriteRenderer>().sprite = null;
             }
             
-            Debug.Log(matchingTiles.Count);
-            
             // Add appropriate score
             switch (matchingTiles.Count)
             {
@@ -162,6 +257,7 @@ namespace MatchThree
                     break;
             }
 
+            //Debug.Log(name + " matches found");
             _matchFound = true;
         }
 
@@ -170,8 +266,8 @@ namespace MatchThree
         {
             if (!_render.sprite) return;
             
-            ClearMatch(new Vector2[] {Vector2.left, Vector2.right});
-            ClearMatch(new Vector2[] {Vector2.up, Vector2.down});
+            ClearMatch(new [] {Vector2.left, Vector2.right});
+            ClearMatch(new [] {Vector2.up, Vector2.down});
 
             if (!_matchFound) return;
             

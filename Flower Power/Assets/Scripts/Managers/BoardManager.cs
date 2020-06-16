@@ -18,7 +18,9 @@ namespace Managers
         [SerializeField] private float shiftDelay = .03f;
 
         private GameObject[,] _tiles; // 2D array
-        
+
+        public GameObject[,] Tiles => _tiles;
+
         public bool IsShifting { get; private set; }
         
 
@@ -52,6 +54,7 @@ namespace Managers
                     List<Sprite> possibleCharacters = new List<Sprite>();
                     possibleCharacters.AddRange(tileCharacters);
 
+                    // Avoid adjacent tiles being the same
                     possibleCharacters.Remove(spritesLeft[y]);
                     possibleCharacters.Remove(spriteBelow);
                     

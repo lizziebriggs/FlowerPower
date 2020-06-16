@@ -369,7 +369,7 @@ MonoBehaviour:
   tile: {fileID: 3359357434055147755, guid: 96a179260ad84c34bbfd918b04a3a6ec, type: 3}
   xSize: 8
   ySize: 12
-  shiftDelay: 0.04
+  shiftDelay: 0.03
 --- !u!4 &338781873
 Transform:
   m_ObjectHideFlags: 0
@@ -579,8 +579,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -196, y: -483}
-  m_SizeDelta: {x: 365.4336, y: 254.24533}
+  m_AnchoredPosition: {x: -196, y: -574}
+  m_SizeDelta: {x: 365.4336, y: 173.14865}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &877326567
 MonoBehaviour:
@@ -764,8 +764,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 263, y: -483}
-  m_SizeDelta: {x: 226.61517, y: 254.24533}
+  m_AnchoredPosition: {x: 230, y: -574}
+  m_SizeDelta: {x: 226.61517, y: 173.14865}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1218215995
 GameObject:
