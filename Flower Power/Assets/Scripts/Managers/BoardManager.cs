@@ -15,7 +15,7 @@ namespace Managers
         [SerializeField] private List<Sprite> tileCharacters = new List<Sprite>();
         [SerializeField] private GameObject tile;
         [SerializeField] private int xSize = 8, ySize = 12;
-        [SerializeField] private float shiftDelay = .03f;
+        public float shiftDelay = .03f;
 
         private GameObject[,] _tiles; // 2D array
 

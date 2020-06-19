@@ -1,4 +1,4 @@
-﻿using System;
+﻿using GUI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +11,7 @@ namespace Managers
         [Header("HUD")]
         [SerializeField] private Text scoreText;
         [SerializeField] private Text movesCountText;
-        [SerializeField] private GameObject gameOverPanel;
+        [SerializeField] private GuiBase gameOverPanel;
         [SerializeField] private Text finalScoreText;
 
         private int _score, _movesCount;
@@ -40,19 +40,17 @@ namespace Managers
         private void Start()
         {
             Instance = GetComponent<GuiManager>();
-
-            gameOverPanel.SetActive(false);
+            gameOverPanel.Hide();
             Score = 0;
             MovesCount = MatchThreeManager.Instance.MaxMovesCount;
         }
 
         private void Update()
         {
-            if (_movesCount == 0)
-            {
-                finalScoreText.text = "Final score: " + _score.ToString();
-                gameOverPanel.SetActive(true);
-            }
+            if (_movesCount != 0) return;
+            
+            finalScoreText.text = "Final score: " + _score.ToString();
+            gameOverPanel.Show();
         }
     }
 }

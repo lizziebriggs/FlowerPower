@@ -17,6 +17,8 @@ namespace MatchThree
         private readonly Vector2[] _adjacentDirections = new Vector2[]{Vector2.up, Vector2.down, Vector2.left, Vector2.right};
 
         private bool _matchFound;
+
+        [SerializeField] private Animator animator;
         
         [Header("Selection")]
         [SerializeField] private float swipeThreshold = 20f;
@@ -28,7 +30,7 @@ namespace MatchThree
         private void Start()
         {
             _render = GetComponent<SpriteRenderer>();
-            //name = _render.sprite.name;
+            animator.gameObject.SetActive(false);
         }
         
         private void Update()
@@ -59,23 +61,7 @@ namespace MatchThree
             }
         }
 
-
-        private void Select()
-        {
-            _isSelected = true;
-            _render.color = _selectedColour;
-            _previousSelected = gameObject.GetComponent<Tile>();
-        }
-
-        
-        private void Deselect()
-        {
-            _isSelected = false;
-            _render.color = Color.white;
-            _previousSelected = null;
-        }
-
-        
+        // For PC testing
         private void OnMouseDown()
         {
             if (!_render.sprite || BoardManager.Instance.IsShifting)  return;
@@ -107,6 +93,24 @@ namespace MatchThree
                     }
                 }
             }
+        }
+
+
+        private void Select()
+        {
+            _isSelected = true;
+            //_render.color = _selectedColour;
+            animator.gameObject.SetActive(true);
+            _previousSelected = gameObject.GetComponent<Tile>();
+        }
+
+        
+        private void Deselect()
+        {
+            _isSelected = false;
+            //_render.color = Color.white;
+            animator.gameObject.SetActive(false);
+            _previousSelected = null;
         }
         
         private GameObject CheckSwipe()
@@ -166,9 +170,6 @@ namespace MatchThree
             Sprite tempSprite = _render.sprite;
             _render.sprite = swapRender.sprite;
             swapRender.sprite = tempSprite;
-
-            //gameObject.name = _render.sprite.name;
-            //swapRender.gameObject.name = swapRender.sprite.name;
             
             //Debug.Log(name + " swapped");
 
@@ -258,6 +259,7 @@ namespace MatchThree
             }
 
             //Debug.Log(name + " matches found");
+            SfxManager.Instance.tilesMatch.Play();
             _matchFound = true;
         }
 
