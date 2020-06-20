@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 namespace Managers
 {
@@ -10,18 +8,17 @@ namespace Managers
         {
             //LoadAsynchronously(sceneIndex);
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
-            Debug.Log("Scene loaded");
         }
 
-        private IEnumerator LoadAsynchronously(int sceneIndex)
-        {
-            AsyncOperation loadingOperation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneIndex);
-
-            while (!loadingOperation.isDone)
-            {
-                // Loading bar progress
-                yield return null;
-            }
-        }
+        // private IEnumerator LoadAsynchronously(int sceneIndex)
+        // {
+        //     AsyncOperation loadingOperation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneIndex);
+        //
+        //     while (!loadingOperation.isDone)
+        //     {
+        //         // Loading bar progress
+        //         yield return null;
+        //     }
+        // }
     }
 }

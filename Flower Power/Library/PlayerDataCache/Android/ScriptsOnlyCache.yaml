@@ -1,6 +1,7 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - GUI.GuiBase
     - Managers.BoardManager
     - Managers.GuiManager
     - Managers.MatchThreeManager
@@ -18,6 +19,11 @@ ScriptsOnlyBuild:
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.RiderScriptEditorData
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    Unity.TextMeshPro.dll:
+    - TMPro.TMP_FontAsset
+    - TMPro.TMP_Settings
+    - TMPro.TMP_SpriteAsset
+    - TMPro.TMP_StyleSheet
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -44,7 +50,11 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 49
+      Script: {instanceID: 0}
     - Class: 61
+      Script: {instanceID: 0}
+    - Class: 74
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
@@ -52,34 +62,50 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 83
       Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
+    - Class: 109
+      Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11174}
+      Script: {instanceID: 11178}
     - Class: 114
-      Script: {instanceID: 11462}
+      Script: {instanceID: 11200}
     - Class: 114
-      Script: {instanceID: 11516}
+      Script: {instanceID: 11540}
     - Class: 114
-      Script: {instanceID: 11796}
+      Script: {instanceID: 11566}
     - Class: 114
-      Script: {instanceID: 11980}
+      Script: {instanceID: 11822}
     - Class: 114
-      Script: {instanceID: 11984}
+      Script: {instanceID: 12006}
     - Class: 114
-      Script: {instanceID: 12182}
+      Script: {instanceID: 12010}
     - Class: 114
-      Script: {instanceID: 12380}
+      Script: {instanceID: 12208}
     - Class: 114
-      Script: {instanceID: 12882}
+      Script: {instanceID: 12260}
     - Class: 114
-      Script: {instanceID: 13638}
+      Script: {instanceID: 12406}
     - Class: 114
-      Script: {instanceID: 13962}
+      Script: {instanceID: 12456}
     - Class: 114
-      Script: {instanceID: 14250}
+      Script: {instanceID: 12910}
     - Class: 114
-      Script: {instanceID: 14972}
+      Script: {instanceID: 13256}
+    - Class: 114
+      Script: {instanceID: 13274}
+    - Class: 114
+      Script: {instanceID: 13668}
+    - Class: 114
+      Script: {instanceID: 13942}
+    - Class: 114
+      Script: {instanceID: 13992}
+    - Class: 114
+      Script: {instanceID: 14280}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -99,6 +125,12 @@ ScriptsOnlyBuild:
     - Class: 224
       Script: {instanceID: 0}
   scriptHashData:
+  - hash:
+      serializedVersion: 2
+      Hash: aeb62f729c52c814dec86c47dcac1471
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Text
   - hash:
       serializedVersion: 2
       Hash: 4bc4346a71a8df53a6b106f68ef3a190
@@ -149,12 +181,6 @@ ScriptsOnlyBuild:
     className: ActivationTrack
   - hash:
       serializedVersion: 2
-      Hash: aeb62f729c52c814dec86c47dcac1471
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Text
-  - hash:
-      serializedVersion: 2
       Hash: 499fd23433e68e265d153aa6b95d0047
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -183,6 +209,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
     className: TestResultRendererCallback
+  - hash:
+      serializedVersion: 2
+      Hash: 3d17f26b4221649bf7de8e684034e22c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Managers
+    className: SfxManager
   - hash:
       serializedVersion: 2
       Hash: 896f4ddc5cbd3f6fa8a70c332cddb47a
@@ -233,7 +265,7 @@ ScriptsOnlyBuild:
     className: AnimationTrack
   - hash:
       serializedVersion: 2
-      Hash: f1f73f08c660b8cf54632b76af48191a
+      Hash: a62941130fe938cdd30ade1906d23b7b
     assemblyName: Assembly-CSharp.dll
     namespaceName: MatchThree
     className: Tile
@@ -281,7 +313,7 @@ ScriptsOnlyBuild:
     className: AnimationPlayableAsset
   - hash:
       serializedVersion: 2
-      Hash: c83ec5019f49c8c0f55c13e74c7fbdc0
+      Hash: e6424fc0d856b97fba6a062e1308b40c
     assemblyName: Assembly-CSharp.dll
     namespaceName: Managers
     className: GuiManager
@@ -353,6 +385,12 @@ ScriptsOnlyBuild:
     className: SceneManager
   - hash:
       serializedVersion: 2
+      Hash: 30f3213a6e218a461fa00e428f22d3eb
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: GUI
+    className: GuiBase
+  - hash:
+      serializedVersion: 2
       Hash: b3ab2106268377ffe25dd18ac23dca28
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -405,6 +443,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: RawImage
+  - hash:
+      serializedVersion: 2
+      Hash: 529afb92d6cc4cfdff1b9a95141a1068
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: GUI
+    className: SequenceAnimator
   - hash:
       serializedVersion: 2
       Hash: 5ad4aa237d47ac2bab17bacb672edf7a
@@ -609,12 +653,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 3d17f26b4221649bf7de8e684034e22c
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: Managers
-    className: SfxManager
   platform: 13
   scenePathNames:
   - Assets/Scenes/MatchThreePrototype.unity

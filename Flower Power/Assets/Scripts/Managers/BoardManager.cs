@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using MatchThree;
 using UnityEngine;
@@ -17,9 +16,7 @@ namespace Managers
         [SerializeField] private int xSize = 8, ySize = 12;
         public float shiftDelay = .03f;
 
-        private GameObject[,] _tiles; // 2D array
-
-        public GameObject[,] Tiles => _tiles;
+        private Tile[,] _tiles; // 2D array
 
         public bool IsShifting { get; private set; }
         
@@ -35,7 +32,7 @@ namespace Managers
 
         private void CreateBoard(float xOffset, float yOffset)
         {
-            _tiles = new GameObject[xSize, ySize];
+            _tiles = new Tile[xSize, ySize];
 
             Vector2 start = transform.position;
 
@@ -47,7 +44,7 @@ namespace Managers
                 for (int y = 0; y < ySize; y++)
                 {
                     GameObject newTile = Instantiate(tile, new Vector3(start.x + (xOffset * x), start.y + (yOffset * y), 0), tile.transform.rotation);
-                    _tiles[x, y] = newTile;
+                    _tiles[x, y] = newTile.GetComponent<Tile>();
 
                     newTile.transform.parent = transform;
                     
@@ -74,7 +71,7 @@ namespace Managers
             {
                 for (int y = 0; y < ySize; y++)
                 {
-                    if (_tiles[x, y].GetComponent<SpriteRenderer>().sprite) continue;
+                    if (_tiles[x, y].Render.sprite) continue; // if it has a sprite ignore
                     
                     yield return StartCoroutine(routine: ShiftTilesDown(x, y));
                     break;
@@ -84,7 +81,7 @@ namespace Managers
             for (int x = 0; x < xSize; x++) {
                 for (int y = 0; y < ySize; y++)
                 {
-                    _tiles[x, y].GetComponent<Tile>().ClearAllMatches();
+                    _tiles[x, y].ClearAllMatches(); // Search for new matches
                 }
             }
 
@@ -94,12 +91,13 @@ namespace Managers
         private IEnumerator ShiftTilesDown(int x, int yStart)
         {
             IsShifting = true;
+            
             List<SpriteRenderer> renders = new List<SpriteRenderer>();
             int nullCount = 0;
 
             for (int y = yStart; y < ySize; y++)
             {
-                SpriteRenderer render = _tiles[x, y].GetComponent<SpriteRenderer>();
+                SpriteRenderer render = _tiles[x, y].Render;
 
                 if (!render.sprite) nullCount++;
                 
@@ -109,7 +107,7 @@ namespace Managers
             for (int i = 0; i < nullCount; i++)
             {
                 yield return new WaitForSeconds(shiftDelay);
-
+                
                 for (int r = 0; r < renders.Count - 1; r++)
                 {
                     renders[r].sprite = renders[r + 1].sprite;
@@ -127,11 +125,11 @@ namespace Managers
             possibleCharacters.AddRange(tileCharacters);
 
             if (x > 0)
-                possibleCharacters.Remove(_tiles[x - 1, y].GetComponent<SpriteRenderer>().sprite);
+                possibleCharacters.Remove(_tiles[x - 1, y].Render.sprite);
             if(x < xSize - 1)
-                possibleCharacters.Remove(_tiles[x + 1, y].GetComponent<SpriteRenderer>().sprite);
+                possibleCharacters.Remove(_tiles[x + 1, y].Render.sprite);
             if(y > 0)
-                possibleCharacters.Remove(_tiles[x, y - 1].GetComponent<SpriteRenderer>().sprite);
+                possibleCharacters.Remove(_tiles[x, y - 1].Render.sprite);
 
             return possibleCharacters[Random.Range(0, possibleCharacters.Count)];
         }

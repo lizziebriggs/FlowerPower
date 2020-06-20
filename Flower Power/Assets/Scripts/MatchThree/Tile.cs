@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Managers;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
@@ -12,7 +13,9 @@ namespace MatchThree
         private static Tile _previousSelected;
 
         private SpriteRenderer _render;
-        private readonly Color _selectedColour = new Color(.5f, .5f, .5f, 1.0f);
+        public SpriteRenderer Render => _render;
+
+        //private readonly Color _selectedColour = new Color(.5f, .5f, .5f, 1.0f);
         
         private readonly Vector2[] _adjacentDirections = new Vector2[]{Vector2.up, Vector2.down, Vector2.left, Vector2.right};
 
@@ -35,7 +38,7 @@ namespace MatchThree
         
         private void Update()
         {
-            if (!_isSelected) return;
+            if (!_isSelected || Math.Abs(Time.timeScale) < 0) return;
         
             foreach (Touch touch in Input.touches)
             {
@@ -51,9 +54,9 @@ namespace MatchThree
                     _fingerDown = touch.position;
                     _previousSelected = CheckSwipe().GetComponent<Tile>();
                     
-                    SwapTiles(_previousSelected._render);
+                    SwapTiles(_previousSelected);
                     ClearAllMatches();
-                    _previousSelected.GetComponent<Tile>().ClearAllMatches(); // Clear matches for other swapped tile
+                    _previousSelected.ClearAllMatches(); // Clear matches for other swapped tile
                     
                     _previousSelected.Deselect();
                     Deselect();
@@ -80,9 +83,9 @@ namespace MatchThree
                 {
                     if (GetAllAdjacentTiles().Contains(_previousSelected.gameObject))
                     {
-                        SwapTiles(_previousSelected._render);
+                        SwapTiles(_previousSelected);
                         ClearAllMatches();
-                        _previousSelected.GetComponent<Tile>().ClearAllMatches(); // Clear matches for other swapped tile
+                        _previousSelected.ClearAllMatches(); // Clear matches for other swapped tile
                         _previousSelected.Deselect();
                     }
                     else
@@ -120,14 +123,12 @@ namespace MatchThree
             // Vertical swipes
             if (VerticalMove() > swipeThreshold && VerticalMove() > HorizontalValMove())
             {
-                if (_fingerDown.y - _fingerUp.y > 0)//up swipe
+                if (_fingerDown.y - _fingerUp.y > 0)// Up swipe
                 {
-                    //Debug.Log("Swipe Up");
                     swappingTile = GetAdjacentTile(_adjacentDirections[0]);
                 }
-                else if (_fingerDown.y - _fingerUp.y < 0)//Down swipe
+                else if (_fingerDown.y - _fingerUp.y < 0)// Down swipe
                 {
-                    //Debug.Log("Swipe Down");
                     swappingTile = GetAdjacentTile(_adjacentDirections[1]);
                 }
                 _fingerUp = _fingerDown;
@@ -138,12 +139,10 @@ namespace MatchThree
             {
                 if (_fingerDown.x - _fingerUp.x < 0) // Left swipe
                 {
-                    //Debug.Log("Swipe Left");
                     swappingTile = GetAdjacentTile(_adjacentDirections[2]);
                 }
                 else if (_fingerDown.x - _fingerUp.x > 0) // Right swipe
                 {
-                    //Debug.Log("Swipe Right");
                     swappingTile = GetAdjacentTile(_adjacentDirections[3]);
                 }
                 
@@ -162,24 +161,24 @@ namespace MatchThree
         {
             return Mathf.Abs(_fingerDown.x - _fingerUp.x);
         }
-
-        private void SwapTiles(SpriteRenderer swapRender)
+        
+        
+        private void SwapTiles(Tile swapTile)
         {
-            if (_render.sprite == swapRender.sprite) return;
+            if (_render.sprite == swapTile.Render.sprite) return;
 
             Sprite tempSprite = _render.sprite;
-            _render.sprite = swapRender.sprite;
-            swapRender.sprite = tempSprite;
+            _render.sprite = swapTile.Render.sprite;
+            swapTile.Render.sprite = tempSprite;
             
             //Debug.Log(name + " swapped");
 
             foreach (Vector2 dir in _adjacentDirections)
             {
                 FindMatch(dir);
-                swapRender.GetComponent<Tile>().FindMatch(dir);
+                swapTile.FindMatch(dir);
             }
-
-
+            
             GuiManager.Instance.MovesCount -= 1;
         }
 
@@ -206,8 +205,6 @@ namespace MatchThree
 
         private List<GameObject> FindMatch(Vector2 castDir)
         {
-            //Debug.Log(name + " searching for matches");
-            
             List<GameObject> matchingTiles = new List<GameObject>();
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, castDir);
@@ -238,27 +235,7 @@ namespace MatchThree
                 tile.GetComponent<SpriteRenderer>().sprite = null;
             }
             
-            // Add appropriate score
-            switch (matchingTiles.Count)
-            {
-                case 2: 
-                    GuiManager.Instance.Score += MatchThreeManager.Instance.ThreeTileMatch;
-                    break;
-                
-                case 3: 
-                    GuiManager.Instance.Score += MatchThreeManager.Instance.FourTileMatch;
-                    break;
-                
-                case 4: 
-                    GuiManager.Instance.Score += MatchThreeManager.Instance.FiveTileMatch;
-                    break;
-                
-                default:
-                    GuiManager.Instance.Score += 50;
-                    break;
-            }
-
-            //Debug.Log(name + " matches found");
+            AddScore(matchingTiles.Count);
             SfxManager.Instance.tilesMatch.Play();
             _matchFound = true;
         }
@@ -278,6 +255,29 @@ namespace MatchThree
             
             StopCoroutine(BoardManager.Instance.FindNullTiles());
             StartCoroutine(BoardManager.Instance.FindNullTiles());
+        }
+
+
+        private void AddScore(int matchCount)
+        {
+            switch (matchCount)
+            {
+                case 2: 
+                    GuiManager.Instance.Score += MatchThreeManager.Instance.ThreeTileMatch;
+                    break;
+                
+                case 3: 
+                    GuiManager.Instance.Score += MatchThreeManager.Instance.FourTileMatch;
+                    break;
+                
+                case 4: 
+                    GuiManager.Instance.Score += MatchThreeManager.Instance.FiveTileMatch;
+                    break;
+                
+                default:
+                    GuiManager.Instance.Score += 50;
+                    break;
+            }
         }
     }
 }
