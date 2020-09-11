@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MatchThreePrototype.unity
+    guid: 0ee38e0c9de2e31498f0089d03b521a6
   m_configObjects: {}
