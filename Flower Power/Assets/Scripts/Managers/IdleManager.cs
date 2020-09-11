@@ -15,6 +15,9 @@ namespace Managers
             set
             { 
                 totalPollen = value;
+                
+                if(!MainGuiManager.Instance)
+                    return;
                 MainGuiManager.Instance.PollenText.text = "Pollen: " + totalPollen;
             }
         }

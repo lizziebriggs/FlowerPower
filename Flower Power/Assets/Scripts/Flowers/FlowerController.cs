@@ -61,6 +61,9 @@ namespace Flowers
 
         private void ProducePollen()
         {
+            if (!IdleManager.Instance)
+                return;
+            
             IdleManager.Instance.TotalPollen += _pollen;
         }
         
