@@ -1,29 +1,29 @@
-﻿using Managers;
+﻿using Flowers;
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI
 {
-    [RequireComponent(typeof(Button))]
     public class PurchaseButtonController : MonoBehaviour
     {
-        private Button _button;
-        void Start()
-        {
-            _button = GetComponent<Button>();
-        }
-        
+        [SerializeField] private Button _button;
+        [SerializeField] private Flower _flower;
+
         void Update()
         {
             CheckPollenBalance();
         }
-        
+
         private void CheckPollenBalance()
         { 
             if(!IdleManager.Instance)
                 return;
-            
-            // does player have enough monies?
+
+            if (IdleManager.Instance.TotalPollen < _flower.startingPollen)
+                _button.interactable = false;
+            else if (IdleManager.Instance.TotalPollen >= _flower.startingPollen)
+                _button.interactable = true;
         }
     }
 }

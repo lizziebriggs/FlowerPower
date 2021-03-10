@@ -10,7 +10,8 @@ namespace Flowers
     public class FlowerController : MonoBehaviour
     {
         [SerializeField] private Flower flowerType;
-        private int _pollen;
+        private int _costToBuy;
+        private int _pollenProduction;
         [SerializeField] private SpriteRenderer sprite;
 
         [SerializeField] private float producePollenTime;
@@ -24,7 +25,7 @@ namespace Flowers
             set
             {
                 _level = value;
-                _pollen += flowerType.pollenIncrease;
+                _pollenProduction += flowerType.pollenIncrease;
             }
         }
 
@@ -33,7 +34,7 @@ namespace Flowers
             sprite = GetComponent<SpriteRenderer>();
             sprite.sprite = flowerType.flowerSprite;
 
-            if (_level == 1) _pollen = flowerType.startingPollen;
+            if (_level == 1) _pollenProduction = flowerType.startingPollen;
         }
 
         private void Update()
@@ -64,7 +65,7 @@ namespace Flowers
             if (!IdleManager.Instance)
                 return;
             
-            IdleManager.Instance.TotalPollen += _pollen;
+            IdleManager.Instance.TotalPollen += _pollenProduction;
         }
         
     }
