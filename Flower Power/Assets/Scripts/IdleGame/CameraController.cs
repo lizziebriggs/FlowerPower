@@ -1,5 +1,4 @@
 ﻿using Flowers;
-using UnityEditor.Animations;
 using UnityEngine;
 
 namespace IdleGame
