@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Rose
   m_EditorClassIdentifier: 
   startingPollen: 1
-  pollenIncrease: 3
+  pollenIncrease: 2
   flowerSprite: {fileID: 21300000, guid: 6eaa8aa03a3e3ac4597f3161e689648b, type: 3}

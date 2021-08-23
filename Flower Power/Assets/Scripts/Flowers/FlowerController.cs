@@ -10,6 +10,8 @@ namespace Flowers
     public class FlowerController : MonoBehaviour
     {
         [SerializeField] private Flower flowerType;
+        public Flower FlowerType => flowerType;
+
         private int _costToBuy;
         private int _pollenProduction;
         [SerializeField] private SpriteRenderer sprite;
