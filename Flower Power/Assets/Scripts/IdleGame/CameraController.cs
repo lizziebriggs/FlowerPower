@@ -14,8 +14,11 @@ namespace IdleGame
         [SerializeField] private float _defaultDepth = -10; 
         [SerializeField] private float _defaultZoom = 5;
         [SerializeField] private float _zoomAmount = 2.5f;
+
+        [Header("Functions")]
+        [SerializeField] bool _canZoomToPatch;
         
-        private Vector3 starPos = new Vector3(0, 0, -10);
+        private Vector3 _startPos = new Vector3(0, 0, -10);
 
         private FlowerPatch _focusedFlowerPatch;
 
@@ -31,6 +34,8 @@ namespace IdleGame
 
         public void ZoomTo(FlowerPatch flowerPatchToFocus)
         {
+            if (!_canZoomToPatch) return;
+            
             _focusedFlowerPatch = flowerPatchToFocus;
             var patchPosition = _focusedFlowerPatch.transform.position;
             
@@ -45,7 +50,7 @@ namespace IdleGame
             if(_focusedFlowerPatch)
                 _focusedFlowerPatch.CurrentState = FlowerPatch.FlowerPatchState.Idle;
             
-            _camera.transform.position = starPos;
+            _camera.transform.position = _startPos;
             _camera.orthographicSize = _defaultZoom;
             
             _backButton.SetActive(false);

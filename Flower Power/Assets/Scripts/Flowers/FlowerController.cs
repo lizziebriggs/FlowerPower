@@ -14,9 +14,9 @@ namespace Flowers
 
         private int _costToBuy;
         private int _pollenProduction;
-        [SerializeField] private SpriteRenderer sprite;
+        [SerializeField] private SpriteRenderer _sprite;
 
-        [SerializeField] private float producePollenTime;
+        [SerializeField] private float _producePollenTime;
         private float _pollenTimer;
 
         private int _level = 1;
@@ -33,8 +33,8 @@ namespace Flowers
 
         private void Start()
         {
-            sprite = GetComponent<SpriteRenderer>();
-            sprite.sprite = flowerType.flowerSprite;
+            _sprite = GetComponent<SpriteRenderer>();
+            _sprite.sprite = flowerType.flowerSprite;
 
             if (_level == 1) _pollenProduction = flowerType.startingPollen;
         }
@@ -52,7 +52,7 @@ namespace Flowers
 
         private void IdleProducePollen()
         {
-            if (_pollenTimer >= producePollenTime)
+            if (_pollenTimer >= _producePollenTime)
             {
                 ProducePollen();
                 _pollenTimer = 0;

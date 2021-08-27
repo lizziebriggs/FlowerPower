@@ -122,5 +122,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flowerType: {fileID: 11400000, guid: 57d4fa3fea253f348978dbdd24763ae1, type: 2}
-  sprite: {fileID: 6691552521345984463}
-  producePollenTime: 1
+  _sprite: {fileID: 0}
+  _producePollenTime: 1
