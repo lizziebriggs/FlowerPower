@@ -48,7 +48,7 @@ namespace IdleGame
         public void ResetPosition()
         {
             if(_focusedFlowerPatch)
-                _focusedFlowerPatch.CurrentState = FlowerPatch.FlowerPatchState.Idle;
+                _focusedFlowerPatch.CurrentState = FlowerPatch.State.Idle;
             
             _camera.transform.position = _startPos;
             _camera.orthographicSize = _defaultZoom;

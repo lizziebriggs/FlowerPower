@@ -28,7 +28,7 @@ namespace Managers
 
             foreach (FlowerPatch flowerPatch in _flowerPatches)
             {
-                flowerPatch.CurrentState = FlowerPatch.FlowerPatchState.Purchasing;
+                flowerPatch.CurrentState = FlowerPatch.State.Purchasing;
             }
         }
     }

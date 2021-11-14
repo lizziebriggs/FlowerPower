@@ -9,6 +9,7 @@ namespace IdleGame
 
         [Header("Settings")]
         [SerializeField] private bool _zoomEnabled;
+        [SerializeField] private float _zoomSpeed = 0.01f;
         [SerializeField] private float _zoomOutMin = 1;
         [SerializeField] private float _zoomOutMax = 8;
 
@@ -40,7 +41,7 @@ namespace IdleGame
         
                 float difference = currentMagnitude - prevMagnitude;
             
-                Zoom(difference * 0.01f);
+                Zoom(difference * _zoomSpeed);
             }
         
             // Camera pan
