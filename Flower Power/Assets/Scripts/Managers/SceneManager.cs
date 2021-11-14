@@ -7,7 +7,7 @@ namespace Managers
         public void LoadScene(int sceneIndex)
         {
             //LoadAsynchronously(sceneIndex);
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneIndex);
         }
 
         // private IEnumerator LoadAsynchronously(int sceneIndex)
